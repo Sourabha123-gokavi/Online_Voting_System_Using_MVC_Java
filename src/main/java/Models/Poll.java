@@ -1,24 +1,30 @@
 package Models;
 
 import javax.persistence.*;
+
+
 @Entity
 public class Poll implements Models {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pollId;
+
+    @Column(name = "poll_name")
     private String pollName;
+
+    @Column(name = "status")
     private boolean status;
-    private String Winner;
-    private boolean isVoted;
 
-    public boolean isVoted() {
-        return isVoted;
-    }
+    @Column(name = "winner")
+    private String winner;
 
-    public void setVoted(boolean voted) {
-        isVoted = voted;
-    }
+    @Column(name = "is_voted")
+    private boolean voted;
+    
+    @Column(name = "region")
+    private String region;
 
+    // Getters and setters
     public int getPollId() {
         return pollId;
     }
@@ -44,11 +50,26 @@ public class Poll implements Models {
     }
 
     public String getWinner() {
-        return Winner;
+        return winner;
     }
 
     public void setWinner(String winner) {
-        Winner = winner;
+        this.winner = winner;
     }
 
+    public boolean isVoted() {
+        return voted;
+    }
+
+    public void setVoted(boolean voted) {
+        this.voted = voted;
+    }
+    
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 }

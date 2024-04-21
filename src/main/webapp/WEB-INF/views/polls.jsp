@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +40,7 @@
             margin-bottom: 10px; /* Add margin between buttons */
             display: block; /* Make buttons appear one below the other */
             width: 100%; /* Make buttons fill the container width */
+            margin-top:2px;
         }
 
         .btn-primary:hover {
@@ -64,16 +68,70 @@
             margin-top: 20px;
             float: right;
         }
+    
     </style>
 </head>
+
+
+
+
 <body>
 <div class="container">
-    <h2>Admin Home</h2>
-    <a href="/Online-Voting-System/voter/displayAll" class="btn btn-primary btn-lg">Manage Voters</a>
-    <a href="/Online-Voting-System/candidate/addcandidate" class="btn btn-primary btn-lg">Add Candidate</a>
-    <a href="/Online-Voting-System/party/add" class="btn btn-primary btn-lg">Add Party</a>
-    <a href="/Online-Voting-System/poll/polls" class="btn btn-primary btn-lg">Polls</a>
-    <a href="/Online-Voting-System/admin/login" class="btn btn-primary btn-lg">Back</a>
+    <h2>Polls</h2>
+    <table class="table table-striped" style="margin-bottom: 30px;">
+        <thead>
+        <tr>
+            <th>Poll Name</th>
+            <th>Status</th>
+            <th>Winner</th>
+            <th>Region</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${polls}" var="poll">
+            <tr>
+                <td>${poll.pollName}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${poll.status}">
+                            Active
+                        </c:when>
+                        <c:otherwise>
+                            Inactive
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>${poll.winner}</td>
+                <td>${poll.region}</td> <!-- Display the region -->
+                <td>
+                    <c:choose>
+    <c:when test="${poll.status}">
+        <div class="d-inline-block">
+            <a class="btn btn-primary btn-sm add-pollOption-btn" href="/Online-Voting-System/pollOption/add/${poll.pollId}">Add Options</a>
+        </div>
+        <div class="d-inline-block">
+            <a class="btn btn-primary btn-sm" href="/Online-Voting-System/voteCount/result/${poll.pollId}">Calculate Result and Inactivate</a>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="d-inline-block">
+            <a class="btn btn-primary btn-sm disabled" href="#" disabled="disabled">Add Options</a>
+        </div>
+        <div class="d-inline-block">
+            <a class="btn btn-primary btn-sm disabled" href="#" disabled="disabled">Calculate Result and Inactivate</a>
+        </div>
+    </c:otherwise>
+</c:choose>
+<a class="btn btn-danger btn-sm" href="/Online-Voting-System/poll/deletePoll/${poll.pollId}">Delete</a>
+
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <a href="/Online-Voting-System/poll/add" class="btn btn-primary add-polls-button mb-3">Add More Polls</a><br>
+    <a href="/Online-Voting-System/admin/login" class="btn btn-primary backbutton">Back</a>
 
 
 </div>

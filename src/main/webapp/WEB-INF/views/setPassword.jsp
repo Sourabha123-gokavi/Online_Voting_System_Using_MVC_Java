@@ -1,11 +1,13 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
-            background-image: url('https://images.thequint.com/thequint/2023-05/73bf4c27-3ae1-45af-91ce-8c14e164a07f/parliamant_01__1_.jpg');
+            background-image: url('https://akm-img-a-in.tosshub.com/indiatoday/images/story/202305/bypoll_1-sixteen_nine.jpg?VersionId=qK8EAmc1OuPFReZ0DeXC0tTobtdHQFX.&size=690:388');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -66,18 +68,30 @@
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <h2>Admin Home</h2>
-    <a href="/Online-Voting-System/voter/displayAll" class="btn btn-primary btn-lg">Manage Voters</a>
-    <a href="/Online-Voting-System/candidate/addcandidate" class="btn btn-primary btn-lg">Add Candidate</a>
-    <a href="/Online-Voting-System/party/add" class="btn btn-primary btn-lg">Add Party</a>
-    <a href="/Online-Voting-System/poll/polls" class="btn btn-primary btn-lg">Polls</a>
-    <a href="/Online-Voting-System/admin/login" class="btn btn-primary btn-lg">Back</a>
-
-
-</div>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <div class="container">
+        <h2>Set Your Password</h2>
+        <form action="/Online-Voting-System/voter/handleSetPassword" method="post">
+            <div class="form-group">
+                <label for="voterName">Voter Name:</label>
+                <input type="text" class="form-control" id="voterName" placeholder="Enter voter name" required
+                    name="username">
+            </div>
+            <div class="form-group">
+                <label for="newPassword">New Password:</label>
+                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password"
+                    required name="newPassword">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password"
+                    required name="confirmPassword">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Set Password</button>
+        </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>

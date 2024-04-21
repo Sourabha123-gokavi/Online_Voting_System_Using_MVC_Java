@@ -34,4 +34,7 @@ public class PollOption implements Models{
     public void setOptionName(String optionName) {
         this.optionName = optionName;
     }
+
+
+    
 }

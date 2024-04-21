@@ -19,9 +19,9 @@ public class VoteCountController {
     @Autowired
     private PollDAO pollDAO;
 
-
     @RequestMapping("/addVote")
-    public String addVote(@RequestParam("selectedOption") int selectedOptionId, @RequestParam("pollId") String pollIdString, HttpServletRequest request) {
+    public String addVote(@RequestParam("selectedOption") int selectedOptionId,
+            @RequestParam("pollId") String pollIdString, HttpServletRequest request) {
         VoteCount voteCount = new VoteCount();
         int pollId = Integer.parseInt(pollIdString.replace(",", ""));
         voteCount.setPollId(pollId);
@@ -32,14 +32,28 @@ public class VoteCountController {
         return "redirect:/voter/home";
     }
 
+    // @RequestMapping("/result/{pollId}")
+    // public String result(@PathVariable("pollId") int pollId) {
+    // Poll poll = pollDAO.get(pollId);
+    // poll.setStatus(false);
+    // poll.setWinner(voteCountDAO.getWinner(pollId));
+    // pollDAO.update(poll);
+    // return "redirect:/admin/home";
+    // }
     @RequestMapping("/result/{pollId}")
     public String result(@PathVariable("pollId") int pollId) {
-        Poll poll = pollDAO.get(pollId);
+    Poll poll = pollDAO.get(pollId);
+    int voteCount = voteCountDAO.getVoteCountFromDB(pollId);
+    
+    if (voteCount > 0) {
+        // There are votes casted
         poll.setStatus(false);
         poll.setWinner(voteCountDAO.getWinner(pollId));
         pollDAO.update(poll);
-        return "redirect:/admin/home";
     }
-
+    
+    return "redirect:/admin/home";
 }
+
+    }
 

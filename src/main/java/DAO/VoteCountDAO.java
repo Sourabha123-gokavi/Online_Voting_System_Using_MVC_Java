@@ -10,6 +10,9 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import Models.PollOption;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+
 
 @Component
 public class VoteCountDAO {
@@ -19,6 +22,13 @@ public class VoteCountDAO {
     private OptionDAO optionDAO;
     @Autowired
     private VoteCountDAO voteCountDAO;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public int getVoteCountFromDB(int pollId) {
+        String sql = "SELECT COUNT(*) FROM VoteCount WHERE pollId = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, pollId);
+    }
     @Transactional
     public void save(Models models) {
         VoteCount poll = (VoteCount) models;

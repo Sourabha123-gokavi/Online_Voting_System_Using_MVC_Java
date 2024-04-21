@@ -1,7 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Admin Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
@@ -66,18 +69,40 @@
         }
     </style>
 </head>
+    
 <body>
-<div class="container">
-    <h2>Admin Home</h2>
-    <a href="/Online-Voting-System/voter/displayAll" class="btn btn-primary btn-lg">Manage Voters</a>
-    <a href="/Online-Voting-System/candidate/addcandidate" class="btn btn-primary btn-lg">Add Candidate</a>
-    <a href="/Online-Voting-System/party/add" class="btn btn-primary btn-lg">Add Party</a>
-    <a href="/Online-Voting-System/poll/polls" class="btn btn-primary btn-lg">Polls</a>
-    <a href="/Online-Voting-System/admin/login" class="btn btn-primary btn-lg">Back</a>
+    <div class="container">
+        <h2>Candidate List</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Region</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${candidates}" var="candidate">
+                    <tr>
+                        <td>${candidate.candidateId}</td>
+                        <td>${candidate.candidateName}</td>
+                        <td>${candidate.email}</td>
+                        <td>${candidate.region}</td>
+                        <td>
+                            <a class="btn btn-danger"
+                                href="/Online-Voting-System/candidate/deletecandidate/${candidate.candidateId}">Delete</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <a class="btn btn-primary add-button" href="/Online-Voting-System/candidate/addcandidate">Add More Candidates</a>
+        <a class="btn btn-outline-primary" href="/Online-Voting-System/admin/home">Back</a>
+    </div>
 
-
-</div>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>

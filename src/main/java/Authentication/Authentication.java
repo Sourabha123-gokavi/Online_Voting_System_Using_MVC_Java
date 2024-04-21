@@ -6,6 +6,7 @@ import Models.Voter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -31,11 +32,9 @@ public class Authentication {
             }
         }
         if (role.equals("voter")) {
-            List<Voter> voterList = voterDAO.getAll();
-            for (Voter voter : voterList) {
-                if (voter.getVoterName().equals(username) && voter.getVoterPassword().equals(password)) {
-                    return "voter";
-                }
+            Voter voter = voterDAO.findByUsername(username);
+            if (voter != null && BCrypt.checkpw(password, voter.getPassword())) {
+                return "voter";
             }
         }
         return "not authenticated";
