@@ -77,6 +77,7 @@
         <div class="form-group">
             <label for="region">Region:</label>
             <select class="form-control" id="region" name="region">
+                <option value="">Select Region</option>
                 <option value="North">North</option>
                 <option value="South">South</option>
                 <option value="East">East</option>

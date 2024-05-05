@@ -70,25 +70,26 @@
     </style>
 </head>
 
-
-
 <body>
-<div class="container">
-    <h2 class="text-center mt-4">Vote for Poll: ${poll.pollName}</h2>
-    <form action="/Online-Voting-System/voteCount/addVote" method="post">
-        <div class="form-group">
-            <c:forEach items="${options}" var="option">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="option${option.optionId}" name="selectedOption" value="${option.optionId}">
-                    <label class="custom-control-label" for="option${option.optionId}">${option.optionName}</label>
-                </div>
-            </c:forEach>
-        </div>
-        <input type="hidden" value="${poll.pollId}" name="pollId">
-        <button type="submit" class="btn btn-primary">Vote</button>
-    </form>
-</div>
+    <div class="container">
+        <h2 class="text-center mt-4">Vote for Poll: ${poll.pollName}</h2>
+        <form action="/Online-Voting-System/voteCount/addVote" method="post">
+            <div class="form-group">
+                <c:forEach items="${options}" var="option">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="option${option.optionId}" name="selectedOption" value="${option.optionId}">
+                        <label class="custom-control-label" for="option${option.optionId}">
+                            ${option.candidateName} (${option.party})
+                        </label>
+                    </div>
+                </c:forEach>
+            </div>
+            <input type="hidden" value="${poll.pollId}" name="pollId">
+            <button type="submit" class="btn btn-primary">Vote</button>
+        </form>
+    </div>
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -32,14 +32,6 @@ public class VoteCountController {
         return "redirect:/voter/home";
     }
 
-    // @RequestMapping("/result/{pollId}")
-    // public String result(@PathVariable("pollId") int pollId) {
-    // Poll poll = pollDAO.get(pollId);
-    // poll.setStatus(false);
-    // poll.setWinner(voteCountDAO.getWinner(pollId));
-    // pollDAO.update(poll);
-    // return "redirect:/admin/home";
-    // }
     @RequestMapping("/result/{pollId}")
     public String result(@PathVariable("pollId") int pollId) {
     Poll poll = pollDAO.get(pollId);
@@ -53,7 +45,6 @@ public class VoteCountController {
     }
     
     return "redirect:/admin/home";
-}
-
     }
+}
 

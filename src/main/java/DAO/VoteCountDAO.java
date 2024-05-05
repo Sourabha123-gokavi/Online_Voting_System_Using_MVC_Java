@@ -47,7 +47,7 @@ public class VoteCountDAO {
         }
         int WinnerId = findMostFrequent(allVotesForPoll);
         PollOption pollOption = (PollOption) optionDAO.get(WinnerId);
-        return pollOption.getOptionName();
+        return pollOption.getcandidateName();
     }
     public int findMostFrequent(List<Integer> list)
     {

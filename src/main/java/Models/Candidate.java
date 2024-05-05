@@ -8,8 +8,8 @@ public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int candidateId;
-
-    private String CandidateName;
+    private int cvoterId;
+    private String candidateName;
     private String email;
     private String phone;
     private String region;
@@ -24,15 +24,22 @@ public class Candidate {
     public void setCandidateId(int candidateId) {
         this.candidateId = candidateId;
     }
+    
+    public int getcvoterId() {
+        return cvoterId;
+    }
+
+    public void setcvoterId(int cvoterId) {
+        this.cvoterId = cvoterId;
+    }
 
     public String getCandidateName() {
-        return CandidateName;
+        return candidateName;
     }
 
-    public void setCandidateName(String CandidateName){
-        this.CandidateName = CandidateName;
+    public void setCandidateName(String candidateName) {
+        this.candidateName = candidateName;
     }
-
     public String getEmail() {
         return email;
     }

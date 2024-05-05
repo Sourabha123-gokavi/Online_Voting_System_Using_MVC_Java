@@ -34,13 +34,14 @@ public class OptionDAO {
     }
 
     public List<PollOption> getOptionByPollId(int pollId) {
-        String sql = "SELECT * FROM PollOption WHERE pollId = ?";
+        String sql = "SELECT * FROM PollOption WHERE oppollId = ?";
         return jdbcTemplate.query(sql, new Object[]{pollId}, new RowMapper<PollOption>() {
             @Override
             public PollOption mapRow(ResultSet rs, int rowNum) throws SQLException {
                 PollOption pollOption = new PollOption();
                 pollOption.setOptionId(rs.getInt(1));
-                pollOption.setOptionName(rs.getString("optionName"));
+                pollOption.setcandidateName(rs.getString("candidateName"));
+                pollOption.setparty(rs.getString("party"));
                 return pollOption;
             }
         });

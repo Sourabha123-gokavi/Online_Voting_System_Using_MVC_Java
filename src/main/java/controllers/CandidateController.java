@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,21 +29,28 @@ public class CandidateController {
     @Autowired
     private Authentication authentication;
 
+    // Single Responsibility Principle: This method is responsible for adding a candidate.
     @RequestMapping("/addcandidate")
     public String addCandidate(Model model, HttpServletRequest request) {
+        // Authentication logic ensures that only admin can access this feature.
         if (authentication.authenticate(request).equals("admin")) {
-            List<Voter> voters = voterDAO.getAll();
-            model.addAttribute("voters", voters);
+            List<Voter> votersNotCandidates = voterDAO.getVotersNotCandidates();
+            model.addAttribute("voters", votersNotCandidates);
             return "addCandidate";
         }
         return "redirect:/admin/login";
+        // Redirects to admin login if not authenticated.
     }
+
+    // Single Responsibility Principle: This method is responsible for handling form submission to add a candidate.
+    // Open/Closed Principle: This method is open for extension (adding new candidate-related functionalities) but closed for modification.
 
     @PostMapping("/handleForm")
     public String handleCandidateForm(@RequestParam("voterId") int voterId, RedirectAttributes redirectAttrs) {
         Voter voter = voterDAO.get(voterId);
         if (voter != null) {
             Candidate candidate = new Candidate();
+            candidate.setcvoterId(voter.getVoterId());
             candidate.setCandidateName(voter.getVoterName());
             candidate.setEmail(voter.getemail());
             candidate.setPhone(voter.getphone());
@@ -58,10 +66,20 @@ public class CandidateController {
         }
     }
 
+    // Single Responsibility Principle: This method is responsible for displaying all candidates.
     @GetMapping("/displayAll")
     public String displayAllCandidates(Model model) {
         List<Candidate> candidates = candidateDAO.getAll();
         model.addAttribute("candidates", candidates);
-        return "displayCandidates"; // This would be your JSP file to display all candidates
+        return "displayCandidates";
+    }
+
+    @RequestMapping("/deletecandidate/{id}")
+    public String deleteVoter(@PathVariable("id") int id, HttpServletRequest request) {
+        if (authentication.authenticate(request).equals("admin")) {
+            candidateDAO.delete(id);
+            return "redirect:/candidate/displayAll";
+        }
+        return "redirect:/admin/login";
     }
 }

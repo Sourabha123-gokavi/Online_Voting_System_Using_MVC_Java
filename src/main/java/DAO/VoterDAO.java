@@ -2,6 +2,7 @@ package DAO;
 
 import Models.Voter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -82,5 +83,10 @@ public class VoterDAO {
             return voter.getVoterId();
         }
         return null; // Return null if no user found or passwords do not match
+    }
+
+    public List<Voter> getVotersNotCandidates() {
+        String sql = "SELECT v.* FROM Voter v LEFT JOIN Candidate c ON v.voterId = c.cvoterId WHERE c.cvoterId IS NULL";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Voter.class));
     }
 }

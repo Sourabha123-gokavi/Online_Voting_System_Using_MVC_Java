@@ -19,6 +19,8 @@ public class PartyController {
     @Autowired
     private Authentication authentication; // Autowire the Authentication class
 
+
+    // Open/Closed Principle: Controller is open for extension (adding new party-related functionalities) but closed for modification.
     @RequestMapping("/add")
     public String addPartyPage(HttpServletRequest request) {
         if (authentication.authenticate(request).equals("admin")) {
@@ -27,6 +29,7 @@ public class PartyController {
         return "redirect:/admin/login";
     }
 
+    // Dependency Inversion Principle: Dependency injection used to inject PartyDAO and Authentication.
     @RequestMapping(value = "/handleForm", method = RequestMethod.POST)
     public String addPartyFormHandler(@ModelAttribute Party party, HttpServletRequest request) {
         if (authentication.authenticate(request).equals("admin")) {
@@ -47,10 +50,10 @@ public class PartyController {
     }
 
     @RequestMapping("/deleteParty/{id}")
-    public String deleteParty(@PathVariable("id") int id, HttpServletRequest request) {
+    public String deleteVoter(@PathVariable("id") int id, HttpServletRequest request) {
         if (authentication.authenticate(request).equals("admin")) {
             partyDAO.delete(id);
-            return "redirect:/party/displayAll";
+            return "redirect:/voter/displayAll";
         }
         return "redirect:/admin/login";
     }

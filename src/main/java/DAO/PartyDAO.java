@@ -2,10 +2,12 @@ package DAO;
 
 import Models.Party;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -36,4 +38,10 @@ public class PartyDAO {
         Party party = hibernateTemplate.load(Party.class, id);
         hibernateTemplate.delete(party);
     }
+
+    public List<Party> getPartiesNotInPoll(int pollId) {
+        String sql = "SELECT p.* FROM Party p WHERE p.partyId NOT IN (SELECT po.oppartyId FROM PollOption po WHERE po.oppollId = ?)";
+        return jdbcTemplate.query(sql, new Object[] { pollId }, new BeanPropertyRowMapper<>(Party.class));
+    }
+
 }

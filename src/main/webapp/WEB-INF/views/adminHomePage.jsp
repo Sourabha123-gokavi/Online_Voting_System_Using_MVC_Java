@@ -70,9 +70,9 @@
 <div class="container">
     <h2>Admin Home</h2>
     <a href="/Online-Voting-System/voter/displayAll" class="btn btn-primary btn-lg">Manage Voters</a>
-    <a href="/Online-Voting-System/candidate/addcandidate" class="btn btn-primary btn-lg">Add Candidate</a>
-    <a href="/Online-Voting-System/party/add" class="btn btn-primary btn-lg">Add Party</a>
-    <a href="/Online-Voting-System/poll/polls" class="btn btn-primary btn-lg">Polls</a>
+    <a href="/Online-Voting-System/candidate/displayAll" class="btn btn-primary btn-lg">Manage Candidate</a>
+    <a href="/Online-Voting-System/party/displayAll" class="btn btn-primary btn-lg">Manage Party</a>
+    <a href="/Online-Voting-System/poll/polls" class="btn btn-primary btn-lg">Manage Polls</a>
     <a href="/Online-Voting-System/admin/login" class="btn btn-primary btn-lg">Back</a>
 
 

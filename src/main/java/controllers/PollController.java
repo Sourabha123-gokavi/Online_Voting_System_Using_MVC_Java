@@ -1,3 +1,6 @@
+//Each method in the PollController class serves its intended purpose 
+//without altering the behavior expected from its parent class.
+
 package controllers;
 
 import java.util.List;
@@ -58,7 +61,7 @@ public class PollController {
         return "redirect:/admin/login";
     }
 
-
+    // OCP: Open for extension (adding new poll-related functionalities) but closed for modification.
     @RequestMapping("/handleForm")
     public String addPollHandleForm(@ModelAttribute Poll poll) {
         poll.setStatus(true);
@@ -71,8 +74,9 @@ public class PollController {
     public String deletePoll(@PathVariable("id") int id, HttpServletRequest request) {
         if (authentication.authenticate(request).equals("admin")) {
             pollDAO.delete(id);
-            return "redirect:/admin/home";
+            return "redirect:/poll/polls";
         }
         return "redirect:/admin/login";
     }
+    
 }
